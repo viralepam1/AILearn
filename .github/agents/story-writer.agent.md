@@ -5,11 +5,7 @@ description: >
   Provide a feature number (1–21) and name, and this agent will produce well-structured frontend
   and backend user stories, then create them as issues in the Jira "My Software Team" space.
   Optionally accepts a Figma link to embed design references in the stories.
-tools:
-  - read
-  - mcp_gitkraken_issues_add_comment
-  - mcp_gitkraken_issues_get_detail
-  - mcp_gitkraken_issues_assigned_to_me
+tools: [vscode, read, agent, web, browser, 'com.figma.mcp/mcp/*', 'gitkraken/*']
 ---
 
 # Story Writer — Senior Business Analyst Agent

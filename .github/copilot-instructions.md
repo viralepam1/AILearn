@@ -34,6 +34,16 @@ This workspace uses AI agents to automate product-to-code workflows for a Food D
    - Groups stories into 2-week sprints
    - Usage: `@sprint-planner MST-10, MST-11, MST-12`
 
+4. **RN Project Setup** (`@rn-setup`)
+   - Scaffolds React Native project with navigation, Zustand, API layer, screens
+   - Enforces SOLID, Hook-Screen pattern, Atomic Design, TypeScript strict
+   - Usage: `@rn-setup Setup the project foundation — navigation, state management, API layer, theme, and Login screen`
+
+5. **GitHub Push** (`@github-push`)
+   - Creates a feature branch (`feature/<ticket-id>-<kebab-title>`), commits changes, pushes, and opens a PR
+   - Commit format: `[TICKET-ID] <short imperative sentence>`
+   - Usage: `@github-push MST-42, splash screen animation`
+
 **For details, see:** [AGENTS.md](AGENTS.md)
 
 ---
