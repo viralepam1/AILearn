@@ -18,6 +18,19 @@ export interface LoginResponse {
   user: User;
 }
 
+export interface SignUpRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface SignUpResponse {
+  userId: string;
+  token: string;
+  refreshToken: string;
+  user: User;
+}
+
 export interface AuthState {
   user: User | null;
   token: string | null;
@@ -28,5 +41,3 @@ export interface AuthState {
 }
 
 export type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'error';
-
-export type FormErrors = Record<string, string | undefined>;

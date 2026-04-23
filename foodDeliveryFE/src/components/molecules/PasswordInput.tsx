@@ -45,7 +45,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
           accessibilityLabel={accessibilityLabel}
         />
         <Icon
-          name={isPasswordVisible ? 'eye-off' : 'eye'}
+          name={isPasswordVisible ? 'eye' : 'eye-off'}
           onPress={onToggleVisibility}
           accessibilityLabel={
             isPasswordVisible ? 'Hide password' : 'Show password'

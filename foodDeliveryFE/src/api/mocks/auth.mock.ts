@@ -1,7 +1,8 @@
-import type { LoginResponse } from '@/types';
+import type { LoginResponse, SignUpResponse } from '@/types';
 
 const MOCK_EMAIL = 'test@example.com';
 const MOCK_PASSWORD = 'password123';
+const DUPLICATE_EMAIL = 'duplicate@example.com';
 
 const MOCK_LOGIN_RESPONSE: LoginResponse = {
   userId: 'user_001',
@@ -22,5 +23,25 @@ export const authMocks = {
       return MOCK_LOGIN_RESPONSE;
     }
     throw new Error('Invalid email or password');
+  },
+
+  signUp(name: string, email: string, _password: string): SignUpResponse {
+    if (email === DUPLICATE_EMAIL) {
+      const error = new Error('An account with this email already exists');
+      (error as Error & { status: number }).status = 409;
+      throw error;
+    }
+    return {
+      userId: 'user_002',
+      token: 'mock_jwt_signup_token_def456',
+      refreshToken: 'mock_refresh_signup_token_uvw123',
+      user: {
+        id: 'user_002',
+        name,
+        email,
+        phone: '',
+        avatar: null,
+      },
+    };
   },
 } as const;

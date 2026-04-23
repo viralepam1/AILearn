@@ -12,3 +12,6 @@ export type { TextProps } from './Text';
 
 export { TextInput } from './TextInput';
 export type { TextInputProps } from './TextInput';
+
+export { Toast } from './Toast';
+export type { ToastProps } from './Toast';
