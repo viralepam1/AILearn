@@ -1,9 +1,11 @@
-export type { ApiResponse, ApiError, RequestConfig } from './api.types';
+export type { ApiResponse, ApiError, RequestConfig } from './api';
 export type {
   User,
   LoginRequest,
   LoginResponse,
+  SignUpRequest,
+  SignUpResponse,
   AuthState,
   AuthStatus,
-  FormErrors,
-} from './auth.types';
+} from './auth';
+export type { FormErrors } from './common';

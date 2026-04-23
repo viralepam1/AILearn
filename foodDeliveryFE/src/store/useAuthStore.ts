@@ -2,7 +2,13 @@ import { create } from 'zustand';
 import { apiClient } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
 import { storage } from '@/utils/storage';
-import type { User, LoginResponse } from '@/types';
+import { secureStorage } from '@/utils/secureStorage';
+import type {
+  User,
+  LoginResponse,
+  SignUpResponse,
+  SignUpRequest,
+} from '@/types';
 
 interface AuthStoreState {
   user: User | null;
@@ -12,6 +18,7 @@ interface AuthStoreState {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
+  signUp: (req: SignUpRequest) => Promise<void>;
   logout: () => void;
   clearError: () => void;
   setUser: (user: User) => void;
@@ -34,8 +41,8 @@ export const useAuthStore = create<AuthStoreState>(set => ({
       );
       const { token, refreshToken, user } = response.data;
 
-      await storage.setAuthToken(token);
-      await storage.setRefreshToken(refreshToken);
+      await secureStorage.setAuthToken(token);
+      await secureStorage.setRefreshToken(refreshToken);
       await storage.setUser(JSON.stringify(user));
 
       set({
@@ -52,7 +59,30 @@ export const useAuthStore = create<AuthStoreState>(set => ({
     }
   },
 
+  signUp: async (req: SignUpRequest) => {
+    set({ isLoading: true, error: null });
+    const response = await apiClient.post<SignUpResponse>(
+      ENDPOINTS.AUTH.SIGNUP,
+      req,
+    );
+    const { token, refreshToken, user } = response.data;
+
+    await secureStorage.setAuthToken(token);
+    await secureStorage.setRefreshToken(refreshToken);
+    await storage.setUser(JSON.stringify(user));
+
+    set({
+      user,
+      token,
+      refreshToken,
+      isLoading: false,
+      error: null,
+      // isAuthenticated stays false until LocationPermission grants access
+    });
+  },
+
   logout: () => {
+    secureStorage.clearTokens();
     storage.clearAll();
     set({
       user: null,

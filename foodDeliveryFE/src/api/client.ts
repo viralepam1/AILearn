@@ -4,6 +4,15 @@ import { ENDPOINTS } from '@/api/endpoints';
 import { storage } from '@/utils/storage';
 import type { ApiResponse, RequestConfig } from '@/types';
 
+export class HttpError extends Error {
+  readonly status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = 'HttpError';
+    this.status = status;
+  }
+}
+
 interface ApiClient {
   get<T>(endpoint: string, config?: RequestConfig): Promise<ApiResponse<T>>;
   post<T>(
@@ -28,7 +37,12 @@ const handleMockRequest = <T>(
     const data = authMocks.login(email, password) as T;
     return { data, status: 200, message: 'Success' };
   }
-  throw new Error(`No mock handler for endpoint: ${endpoint}`);
+  if (endpoint === ENDPOINTS.AUTH.SIGNUP) {
+    const req = body as { name: string; email: string; password: string };
+    const data = authMocks.signUp(req.name, req.email, req.password) as T;
+    return { data, status: 200, message: 'Success' };
+  }
+  throw new HttpError(404, `No mock handler for endpoint: ${endpoint}`);
 };
 
 const buildHeaders = async (
@@ -52,7 +66,10 @@ const handleResponse = async <T>(
 
   if (!response.ok) {
     const errorBody = json as { message?: string };
-    throw new Error(errorBody.message ?? `HTTP error ${response.status}`);
+    throw new HttpError(
+      response.status,
+      errorBody.message ?? `HTTP error ${response.status}`,
+    );
   }
 
   return json as ApiResponse<T>;

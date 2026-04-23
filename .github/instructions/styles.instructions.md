@@ -4,32 +4,32 @@ applyTo: "foodDeliveryFE/src/components/** foodDeliveryFE/src/screens/**"
 
 # Style File Organization — No Inline Styles
 
-All styles in `components/` and `screens/` **MUST** be defined in separate `.styles.ts` files. Never write inline styles in component files.
+All styles in `components/` and `screens/` **MUST** be defined in a separate `styles.ts` file. Never write inline styles in component files.
 
 ---
 
 ## 1. The Pattern: Co-located Style Files
 
-For every UI component or screen, create a corresponding `.styles.ts` file in the same directory:
+For every UI component or screen, create a corresponding `styles.ts` file in the same directory:
 
 ```
 components/atoms/
 ├── Button.tsx
-├── Button.styles.ts        ← All styles for Button
+├── styles.ts               ← All styles for Button
 └── index.ts
 
 screens/login/
 ├── LoginScreen.tsx
-├── LoginScreen.styles.ts   ← All styles for LoginScreen
+├── styles.ts               ← All styles for LoginScreen
 └── hooks/
     └── useLogin.ts
 ```
 
 ### Rules
-- **File naming:** `<ComponentName>.styles.ts`
+- **File naming:** `styles.ts`
 - **Location:** Same folder as the component `.tsx` file
 - **Content:** Only `StyleSheet.create()` and style helper functions — no JSX, no logic
-- **Import in component:** `import { styles } from './<ComponentName>.styles';`
+- **Import in component:** `import { styles } from './styles';`
 
 ---
 
@@ -40,10 +40,10 @@ Every `.styles.ts` file must:
 2. Export a single `styles` object via `StyleSheet.create()`
 3. Optionally export helper functions for dynamic styles
 
-### Example: Button.styles.ts
+### Example: styles.ts (Button)
 
 ```typescript
-// ✅ components/atoms/Button.styles.ts
+// ✅ components/atoms/styles.ts
 import { StyleSheet } from 'react-native';
 import { COLORS, SPACING, TYPOGRAPHY } from '@/theme';
 
@@ -87,7 +87,7 @@ export const getButtonStyles = (variant: 'primary' | 'secondary' | 'outline') =>
 // ✅ components/atoms/Button.tsx
 import React from 'react';
 import { TouchableOpacity, Text, StyleProp, ViewStyle } from 'react-native';
-import { styles } from './Button.styles';
+import { styles } from './styles';
 
 interface ButtonProps {
   title: string;
@@ -147,7 +147,7 @@ const LoginScreen: React.FC = () => {
 ### ✅ ALWAYS DO THIS (Separate File + Theme Tokens)
 
 ```typescript
-// ✅ GOOD — LoginScreen.styles.ts
+// ✅ GOOD — screens/login/styles.ts
 import { COLORS, SPACING, TYPOGRAPHY } from '@/theme';
 
 export const styles = StyleSheet.create({
@@ -243,7 +243,7 @@ const MyComponent: React.FC = () => {
 For complex organisms or screens, organize styles into logical sections within the same file:
 
 ```typescript
-// ✅ LoginForm.styles.ts
+// ✅ screens/login/styles.ts
 export const styles = StyleSheet.create({
   // Container
   container: { ... },
@@ -316,7 +316,7 @@ export const styles = StyleSheet.create({
 Use `Platform.select()` for platform-specific styling:
 
 ```typescript
-// ✅ Card.styles.ts
+// ✅ styles.ts
 import { Platform, StyleSheet } from 'react-native';
 import { COLORS, SPACING } from '@/theme';
 
@@ -345,10 +345,10 @@ export const styles = StyleSheet.create({
 ## 8. Checklist Before Submitting Code
 
 - [ ] No `style={{ ... }}` inline styles in `.tsx` files
-- [ ] Every component has a `.styles.ts` file in the same folder
-- [ ] Styles imported as `import { styles } from './<Component>.styles';`
+- [ ] Every component has a `styles.ts` file in the same folder
+- [ ] Styles imported as `import { styles } from './styles';`
 - [ ] All color, spacing, and typography values use `@/theme` tokens
-- [ ] `.styles.ts` files have ZERO JSX, ZERO logic, ZERO imports except theme/StyleSheet
+- [ ] `styles.ts` files have ZERO JSX, ZERO logic, ZERO imports except theme/StyleSheet
 - [ ] Component files have ZERO `StyleSheet.create()` calls
 - [ ] Dynamic styles use style arrays or conditional utilities, not inline creation
 
