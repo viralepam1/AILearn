@@ -84,12 +84,71 @@ Estimates stories using Fibonacci points and groups them into 2-week sprints.
 
 ---
 
+### 4. RN Project Setup
+Scaffolds the `foodDeliveryFE/` React Native project with production-ready architecture: navigation, state management, API layer, and screens.
+
+**When to use:** When setting up the project foundation or adding new screens/features that need the full architecture scaffold (navigation, hooks, store, components).
+
+**Invocation:**
+```
+@rn-setup Setup the project foundation — navigation, state management, API layer, theme, and Login screen
+@rn-setup Add Cart screen with PRD Feature 11
+@rn-setup Add a new atom component: Badge
+```
+
+**Inputs:**
+- **Task** (required) — What to scaffold (e.g., "setup project", "add Login screen")
+- **Feature number** (optional) — PRD section number (1–21) for context
+- **Figma link** (optional) — Design reference URL
+
+**Output:**
+- Complete folder structure under `foodDeliveryFE/src/` following Atomic Design
+- Screen + co-located hook pairs (Hook-Screen pattern)
+- Zustand stores, typed API layer with mock data
+- React Navigation with type-safe param lists
+- All code follows SOLID, Container-Presentation (via hooks), TypeScript strict, and RN best practices
+
+**Reference:** [.github/agents/rn-setup.agent.md](.github/agents/rn-setup.agent.md)
+
+---
+
+### 5. GitHub Push
+Automates the full GitHub push workflow: creates a feature branch, commits staged changes, pushes to GitHub, and opens a Pull Request against `main`.
+
+**When to use:** After completing development work on a story — to branch, commit, push, and raise a PR in one step.
+
+**Invocation:**
+```
+@github-push MST-42, splash screen animation
+@github-push MST-10, Add login screen — commit: "implement sign-in form with validation"
+@github-push MST-55, order tracking — target branch: develop
+```
+
+**Inputs:**
+- **Ticket / Story ID** (required) — Jira key, e.g. `MST-42`
+- **Story / feature title** (required) — Short description used in branch name and PR title
+- **Commit message** (optional) — Custom message; derived from title if omitted
+- **PR description** (optional) — Extra context for PR body
+- **Target branch** (optional) — Defaults to `main`
+
+**Output:**
+- Feature branch created: `feature/<ticket-id>-<kebab-title>`
+- Commit with message: `[MST-42] <short imperative sentence>`
+- Branch pushed to `origin`
+- Pull Request opened against `main` with ticket link and change summary
+
+**Reference:** [.github/agents/github-push.agent.md](.github/agents/github-push.agent.md)
+
+---
+
 ## Typical Workflow
 
 1. **Feature Breakdown** → Use `@story-writer Feature X` to decompose a PRD feature into granular, independent stories.
 2. **Test Planning** → Use `@qa-test-writer MST-N` on each approved story to define test coverage.
 3. **Sprint Planning** → Use `@sprint-planner MST-X, MST-Y, MST-Z` to estimate and allocate work.
-4. **Development** → Teams reference stories, acceptance criteria, and test cases for implementation.
+4. **Project Setup & Scaffolding** → Use `@rn-setup` to scaffold screens, navigation, stores, and API layer.
+5. **Development** → Teams implement using stories, acceptance criteria, and test cases for guidance.
+6. **GitHub Push** → Use `@github-push MST-N, <title>` to branch, commit, push, and raise a PR.
 
 ---
 

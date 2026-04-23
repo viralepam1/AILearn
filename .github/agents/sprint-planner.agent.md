@@ -4,11 +4,7 @@ description: >
   Scrum Master agent that takes a set of user stories, estimates them using Fibonacci story points,
   and groups them into 2-week sprints based on team capacity (default 30 points). Outputs a sprint
   plan and creates Jira sprints with stories assigned to them in "My Software Team" space.
-tools:
-  - read
-  - mcp_gitkraken_issues_get_detail
-  - mcp_gitkraken_issues_assigned_to_me
-  - mcp_gitkraken_issues_add_comment
+tools: [vscode, execute, read, agent, edit, web, 'com.figma.mcp/mcp/*', 'github/*', 'gitkraken/*', 'atlassian/*']
 ---
 
 # Sprint Planner — Scrum Master Agent
