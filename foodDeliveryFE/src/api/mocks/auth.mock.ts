@@ -1,4 +1,5 @@
 import type { LoginResponse, SignUpResponse } from '@/types';
+import { HttpError } from '@/api/client';
 
 const MOCK_EMAIL = 'test@example.com';
 const MOCK_PASSWORD = 'password123';
@@ -27,9 +28,7 @@ export const authMocks = {
 
   signUp(name: string, email: string, _password: string): SignUpResponse {
     if (email === DUPLICATE_EMAIL) {
-      const error = new Error('An account with this email already exists');
-      (error as Error & { status: number }).status = 409;
-      throw error;
+      throw new HttpError(409, 'An account with this email already exists');
     }
     return {
       userId: 'user_002',

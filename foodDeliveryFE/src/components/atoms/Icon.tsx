@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, type ViewStyle } from 'react-native';
 import { Text } from './Text';
-import { COLORS } from '@/theme/colors';
+import { COLORS } from '@/theme';
 
 export interface IconProps {
   name: 'eye' | 'eye-off' | 'arrow-left' | 'check';

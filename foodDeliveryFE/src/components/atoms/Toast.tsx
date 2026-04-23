@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Animated, StyleSheet, Text } from 'react-native';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
+import { COLORS, SPACING } from '@/theme';
 
 export interface ToastProps {
   message: string;

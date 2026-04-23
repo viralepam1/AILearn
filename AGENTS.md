@@ -141,6 +141,33 @@ Automates the full GitHub push workflow: creates a feature branch, commits stage
 
 ---
 
+### 6. Code Reviewer
+Reviews React Native code against all project standards: SOLID, Hook-Screen pattern, Atomic Design, TypeScript strict, style-file separation, type conventions, performance, security, and accessibility.
+
+**When to use:** Before merging a PR or after completing code on a feature — to catch violations and improve quality.
+
+**Invocation:**
+```
+@code-reviewer foodDeliveryFE/src/screens/login/LoginScreen.tsx
+@code-reviewer foodDeliveryFE/src/screens/dashboard/ — focus: performance
+@code-reviewer review all changed files
+```
+
+**Inputs:**
+- **File path(s)** (required, or "all changed") — Files or directories to review
+- **PR number** (optional) — GitHub PR number to auto-detect changed files
+- **Focus area** (optional) — Narrow the review (e.g., "performance only", "types only")
+
+**Output:**
+- Structured review with severity levels (🔴 BLOCKER / 🟡 WARNING / 🔵 SUGGESTION)
+- Exact file, line, and rule for each issue
+- Fix suggestions with corrected code snippets
+- Highlights of well-written code
+
+**Reference:** [.github/agents/code-reviewer.agent.md](.github/agents/code-reviewer.agent.md)
+
+---
+
 ## Typical Workflow
 
 1. **Feature Breakdown** → Use `@story-writer Feature X` to decompose a PRD feature into granular, independent stories.
@@ -148,7 +175,8 @@ Automates the full GitHub push workflow: creates a feature branch, commits stage
 3. **Sprint Planning** → Use `@sprint-planner MST-X, MST-Y, MST-Z` to estimate and allocate work.
 4. **Project Setup & Scaffolding** → Use `@rn-setup` to scaffold screens, navigation, stores, and API layer.
 5. **Development** → Teams implement using stories, acceptance criteria, and test cases for guidance.
-6. **GitHub Push** → Use `@github-push MST-N, <title>` to branch, commit, push, and raise a PR.
+6. **Code Review** → Use `@code-reviewer` to audit code against project standards before pushing.
+7. **GitHub Push** → Use `@github-push MST-N, <title>` to branch, commit, push, and raise a PR.
 
 ---
 

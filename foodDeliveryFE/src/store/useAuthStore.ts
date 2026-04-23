@@ -61,24 +61,31 @@ export const useAuthStore = create<AuthStoreState>(set => ({
 
   signUp: async (req: SignUpRequest) => {
     set({ isLoading: true, error: null });
-    const response = await apiClient.post<SignUpResponse>(
-      ENDPOINTS.AUTH.SIGNUP,
-      req,
-    );
-    const { token, refreshToken, user } = response.data;
+    try {
+      const response = await apiClient.post<SignUpResponse>(
+        ENDPOINTS.AUTH.SIGNUP,
+        req,
+      );
+      const { token, refreshToken, user } = response.data;
 
-    await secureStorage.setAuthToken(token);
-    await secureStorage.setRefreshToken(refreshToken);
-    await storage.setUser(JSON.stringify(user));
+      await secureStorage.setAuthToken(token);
+      await secureStorage.setRefreshToken(refreshToken);
+      await storage.setUser(JSON.stringify(user));
 
-    set({
-      user,
-      token,
-      refreshToken,
-      isLoading: false,
-      error: null,
-      // isAuthenticated stays false until LocationPermission grants access
-    });
+      set({
+        user,
+        token,
+        refreshToken,
+        isLoading: false,
+        error: null,
+      });
+    } catch (error) {
+      set({
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Sign up failed',
+      });
+      throw error; // re-throw so useSignUp hook can handle specific cases
+    }
   },
 
   logout: () => {

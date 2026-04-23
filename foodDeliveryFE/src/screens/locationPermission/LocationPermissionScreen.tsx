@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Text } from '@/components/atoms/Text';
-import { COLORS } from '@/theme/colors';
+import { COLORS } from '@/theme';
+import { useLocationPermission } from './hooks/useLocationPermission';
+import { styles } from './styles';
 
 // FDA-5: LocationPermission screen — full implementation in a future story
 export const LocationPermissionScreen: React.FC = () => {
+  useLocationPermission();
+
   return (
     <View style={styles.container}>
       <Text variant="h2" style={styles.text}>
@@ -16,15 +20,3 @@ export const LocationPermissionScreen: React.FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.background,
-  },
-  text: {
-    marginBottom: 8,
-  },
-});

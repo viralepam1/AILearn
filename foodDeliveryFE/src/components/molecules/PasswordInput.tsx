@@ -3,8 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text } from '@/components/atoms/Text';
 import { TextInput } from '@/components/atoms/TextInput';
 import { Icon } from '@/components/atoms/Icon';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
+import { COLORS, SPACING } from '@/theme';
 
 export interface PasswordInputProps {
   label: string;

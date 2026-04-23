@@ -9,7 +9,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, Icon, Toast } from '@/components/atoms';
 import { FormField, PasswordInput } from '@/components/molecules';
-import { COLORS } from '@/theme/colors';
+import { COLORS } from '@/theme';
 import { useSignUp } from './hooks/useSignUp';
 import { styles } from './styles';
 

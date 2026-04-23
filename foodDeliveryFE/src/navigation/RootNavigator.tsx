@@ -25,7 +25,7 @@ export const RootNavigator: React.FC = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          animationEnabled: false,
+          animation: 'none',
         }}
       >
         <Stack.Screen name="Splash" component={SplashScreen} />

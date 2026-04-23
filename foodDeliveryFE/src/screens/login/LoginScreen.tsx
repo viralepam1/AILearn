@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { ScreenTemplate } from '@/components/templates/ScreenTemplate';
 import { Text, Button, Checkbox } from '@/components/atoms';
 import { FormField, PasswordInput } from '@/components/molecules';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
+import { COLORS } from '@/theme';
 import { useLogin } from './hooks/useLogin';
+import { styles } from './styles';
 
 export const LoginScreen: React.FC = () => {
   const {
@@ -119,34 +119,3 @@ export const LoginScreen: React.FC = () => {
     </ScreenTemplate>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    marginTop: SPACING.xxxl,
-    marginBottom: SPACING.xxl,
-  },
-  subtitle: {
-    marginTop: SPACING.sm,
-  },
-  errorBanner: {
-    backgroundColor: '#FDEDEC',
-    padding: SPACING.md,
-    borderRadius: 8,
-    marginBottom: SPACING.lg,
-  },
-  form: {
-    flex: 1,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: SPACING.xl,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: SPACING.xl,
-  },
-});
