@@ -1,7 +1,7 @@
 import { API_CONFIG } from '@/constants/apiConfig';
 import { authMocks } from '@/api/mocks';
 import { ENDPOINTS } from '@/api/endpoints';
-import { storage } from '@/utils/storage';
+import { secureStorage } from '@/utils/secureStorage';
 import type { ApiResponse, RequestConfig } from '@/types';
 
 export class HttpError extends Error {
@@ -52,7 +52,7 @@ const buildHeaders = async (
     'Content-Type': 'application/json',
     ...config?.headers,
   };
-  const token = await storage.getAuthToken();
+  const token = await secureStorage.getAuthToken();
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }

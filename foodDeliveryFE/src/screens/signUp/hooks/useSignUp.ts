@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useFormValidation } from '@/hooks';
+import { useFormValidation, useToast } from '@/hooks';
 import { emailRules, nameRules, signUpPasswordRules } from '@/utils/validation';
 import type { FormErrors } from '@/types';
 import type { AuthStackParamList } from '@/navigation/types';
@@ -58,9 +58,8 @@ export const useSignUp = (): UseSignUpReturn => {
     useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Toast state
-  const [toastMessage, setToastMessage] = useState('');
-  const [isToastVisible, setIsToastVisible] = useState(false);
+  // Toast
+  const { toastMessage, isToastVisible, showToast } = useToast();
 
   // Track which fields the user has already blurred (touched)
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -229,14 +228,12 @@ export const useSignUp = (): UseSignUpReturn => {
           return;
         }
         if (error.status === 400) {
-          setToastMessage('Invalid input. Please check your details.');
-          setIsToastVisible(true);
+          showToast('Invalid input. Please check your details.');
           return;
         }
       }
       // 500 / network error
-      setToastMessage('Something went wrong. Please try again.');
-      setIsToastVisible(true);
+      showToast('Something went wrong. Please try again.');
     }
   }, [signUpAction, name, email, password, navigation]);
 

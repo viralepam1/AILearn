@@ -2,8 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from '@/components/atoms/Text';
 import { TextInput, type TextInputProps } from '@/components/atoms/TextInput';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
+import { COLORS, SPACING } from '@/theme';
 
 export interface FormFieldProps extends TextInputProps {
   label: string;

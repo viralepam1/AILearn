@@ -4,9 +4,7 @@ import {
   StyleSheet,
   type TextInputProps as RNTextInputProps,
 } from 'react-native';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
-import { TYPOGRAPHY } from '@/theme/typography';
+import { COLORS, SPACING, TYPOGRAPHY } from '@/theme';
 
 export interface TextInputProps extends RNTextInputProps {
   hasError?: boolean;

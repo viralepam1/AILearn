@@ -7,8 +7,7 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
+import { COLORS, SPACING } from '@/theme';
 
 export interface ScreenTemplateProps {
   children: React.ReactNode;

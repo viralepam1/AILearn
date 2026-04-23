@@ -5,8 +5,7 @@ import {
   type TextProps as RNTextProps,
   type TextStyle,
 } from 'react-native';
-import { COLORS } from '@/theme/colors';
-import { TYPOGRAPHY } from '@/theme/typography';
+import { COLORS, TYPOGRAPHY } from '@/theme';
 
 export interface TextProps extends RNTextProps {
   variant?: keyof typeof TYPOGRAPHY;

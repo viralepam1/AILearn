@@ -7,9 +7,9 @@ This workspace uses specialized AI agents to automate key development workflows.
 ## Quick Start
 
 ### 1. Story Writer
-Generates detailed, decomposed user stories from PRD features.
+Generates detailed, decomposed user stories from PRD features and automatically creates test cases for each story.
 
-**When to use:** At the start of a feature cycle to translate product requirements into actionable stories.
+**When to use:** At the start of a feature cycle to translate product requirements into actionable stories with test coverage.
 
 **Invocation:**
 ```
@@ -26,6 +26,8 @@ Generates detailed, decomposed user stories from PRD features.
 - Separate frontend (FE) and backend (BE) user stories
 - Each story has acceptance criteria, API contracts, and UI notes
 - Stories are created as issues in Jira "My Software Team" space
+- Comprehensive test cases (functional, negative, edge, API, accessibility) automatically generated for each story
+- Test cases created as sub-tasks under each story in Jira
 
 **Reference:** [.github/agents/story-writer.agent.md](.github/agents/story-writer.agent.md)
 
@@ -141,14 +143,43 @@ Automates the full GitHub push workflow: creates a feature branch, commits stage
 
 ---
 
+### 6. Code Reviewer
+Reviews React Native code against all project standards: SOLID, Hook-Screen pattern, Atomic Design, TypeScript strict, style-file separation, type conventions, performance, security, and accessibility.
+
+**When to use:** Before merging a PR or after completing code on a feature — to catch violations and improve quality.
+
+**Invocation:**
+```
+@code-reviewer foodDeliveryFE/src/screens/login/LoginScreen.tsx
+@code-reviewer foodDeliveryFE/src/screens/dashboard/ — focus: performance
+@code-reviewer review all changed files
+```
+
+**Inputs:**
+- **File path(s)** (required, or "all changed") — Files or directories to review
+- **PR number** (optional) — GitHub PR number to auto-detect changed files
+- **Focus area** (optional) — Narrow the review (e.g., "performance only", "types only")
+
+**Output:**
+- Structured review with severity levels (🔴 BLOCKER / 🟡 WARNING / 🔵 SUGGESTION)
+- Exact file, line, and rule for each issue
+- Fix suggestions with corrected code snippets
+- Highlights of well-written code
+
+**Reference:** [.github/agents/code-reviewer.agent.md](.github/agents/code-reviewer.agent.md)
+
+---
+
 ## Typical Workflow
 
-1. **Feature Breakdown** → Use `@story-writer Feature X` to decompose a PRD feature into granular, independent stories.
-2. **Test Planning** → Use `@qa-test-writer MST-N` on each approved story to define test coverage.
-3. **Sprint Planning** → Use `@sprint-planner MST-X, MST-Y, MST-Z` to estimate and allocate work.
-4. **Project Setup & Scaffolding** → Use `@rn-setup` to scaffold screens, navigation, stores, and API layer.
-5. **Development** → Teams implement using stories, acceptance criteria, and test cases for guidance.
+1. **Feature Breakdown** → Use `@story-writer Feature X` to decompose a PRD feature into granular, independent stories with automatic test case generation.
+2. **Sprint Planning** → Use `@sprint-planner MST-X, MST-Y, MST-Z` to estimate and allocate work.
+3. **Project Setup & Scaffolding** → Use `@rn-setup` to scaffold screens, navigation, stores, and API layer.
+4. **Development** → Teams implement using stories, acceptance criteria, and test cases for guidance.
+5. **Code Review** → Use `@code-reviewer` to audit code against project standards before pushing.
 6. **GitHub Push** → Use `@github-push MST-N, <title>` to branch, commit, push, and raise a PR.
+
+*Note: Story Writer now automatically invokes QA Test Writer for each story created, so Step 2 (Test Planning) is integrated into Step 1.*
 
 ---
 

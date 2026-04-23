@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '@/theme/colors';
-import { SPACING } from '@/theme/spacing';
+import { COLORS, SPACING } from '@/theme';
 
 const DARK_BACKGROUND = '#121223';
 

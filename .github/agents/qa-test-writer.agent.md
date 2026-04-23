@@ -4,11 +4,7 @@ description: >
   Senior QA Engineer agent that takes a user story (from Jira or pasted text) and generates
   comprehensive test cases. Produces BDD scenarios for functional tests and step-by-step cases
   for edge/negative cases. Creates test cases as sub-tasks under the story in Jira "My Software Team" space.
-tools:
-  - read
-  - mcp_gitkraken_issues_get_detail
-  - mcp_gitkraken_issues_add_comment
-  - mcp_gitkraken_issues_assigned_to_me
+tools: [vscode, execute, read, agent, edit, browser, 'atlassian/*', 'com.figma.mcp/mcp/*', 'github/*']
 ---
 
 # QA Test Writer — Senior QA Engineer Agent
